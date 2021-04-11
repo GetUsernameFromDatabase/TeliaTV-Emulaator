@@ -1,0 +1,175 @@
+<root>
+	<vvalik name= "Salvestused">
+		<default>False</default>
+		<hvalik name= "Kõik">
+		</hvalik>
+		<hvalik name= "Tänased">
+		</hvalik>
+		<hvalik name= "Aeguvad">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Videolaenutused">
+		<default>False</default>
+		<hvalik name= "Uued filmid">
+		</hvalik>
+		<hvalik name= "Filmisoovitused">
+		</hvalik>
+		<hvalik name= "Kategooriad">
+		</hvalik>
+		<hvalik name= "Minu filmid">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Lastenurk">
+		<default>False</default>
+		<hvalik name= "Sisenen">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Otsing">
+		<default>False</default>
+		<hvalik name= "Sisenen">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Sisuleidja">
+		<default>False</default>
+		<hvalik name= "Sisenen">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Äpid">
+		<default>False</default>
+		<hvalik name= "FOX NOW">
+		</hvalik>
+		<hvalik name= "HBO">
+		</hvalik>
+		<hvalik name= "National Geographic">
+		</hvalik>
+		<hvalik name= "YouTube">
+		</hvalik>
+		<hvalik name= "Täiskasvanutele">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Telekava">
+		<default>False</default>
+		<hvalik name= "Sisenen">
+		</hvalik>
+		<hvalik name= "Telia soovitab">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Telekanalid">
+		<default>True</default>
+		<hvalik name= "Minu lemmikud">
+		</hvalik>
+		<hvalik name= "Tellitud kanalid">
+		</hvalik>
+		<hvalik name= "Kõik kanalid">
+		</hvalik>
+		<hvalik name= "Eesti kanalid">
+		</hvalik>
+		<hvalik name= "Vene kanalid">
+		</hvalik>
+		<hvalik name= "Laste kanalid">
+		</hvalik>
+		<hvalik name= "Spordi kanalid">
+		</hvalik>
+		<hvalik name= "Muusika kanalid">
+		</hvalik>
+		<hvalik name= "Dokumentaal">
+		</hvalik>
+		<hvalik name= "Uudised">
+		</hvalik>
+		<hvalik name= "Filmid ja Sarjad">
+		</hvalik>
+		<hvalik name= "Elustiil">
+		</hvalik>
+		<hvalik name= "Euroopa kanalid">
+		</hvalik>
+		<hvalik name= "Kanalinimekirjad">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Seaded">
+		<default>False</default>
+		<hvalik name= "Sisenen">
+			<vvalik name ="Tehase seadete taastamine">
+				<hvalik name= "Sisenen">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Sinu TV Teenused">
+				<hvalik name= "Näita kõiki">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Privaatsuseaded">
+				<hvalik name= "Sisenen">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Telia TV seadmed">
+				<hvalik name= "Sisenen">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Kasutajad">
+				<hvalik name= "Sisenen">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Tehnilised seadmed">
+				<hvalik name= "Vali värv">
+				</hvalik>
+				<hvalik name= "HDMI CEC">
+				</hvalik>
+				<hvalik name= "Puldi seaded">
+				</hvalik>
+				<hvalik name= "Muuda digiboksi nime">
+				</hvalik>
+				<hvalik name= "Ekraani seaded">
+				</hvalik>
+				<hvalik name= "Heli seaded">
+				</hvalik>
+				<hvalik name= "Teksti suurus">
+				</hvalik>
+				<hvalik name= "Vali värv">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Äppide haldamine">
+				<hvalik name= "Äppide lukustamine">
+				</hvalik>
+				<hvalik name= "Äppide peitmine">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Pin kood">
+				<hvalik name= "Pin koodi küsimine">
+				</hvalik>
+				<hvalik name= "Muuda PIN koodi">
+				</hvalik>
+			</vvalik>
+			<vvalik name ="Keeleseaded">
+				<hvalik name= "Menüü keel">
+				</hvalik>
+				<hvalik name= "Subtiitrid">
+				</hvalik>
+				<hvalik name= "Heli">
+				</hvalik>
+				<hvalik name= "Kanalite järjestus?">
+				</hvalik>
+			</vvalik>
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Minu Teenused">
+		<default>False</default>
+		<hvalik name= "Telia TV">
+		</hvalik>
+	</vvalik>
+
+	<vvalik name= "Abiinfo">
+		<default>False</default>
+		<hvalik name= "Abiinfo">
+		</hvalik>
+		<hvalik name= "Info ja teated">
+		</hvalik>
+	</vvalik>
+</root>
