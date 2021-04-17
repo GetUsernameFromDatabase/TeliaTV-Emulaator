@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,10 +30,7 @@ namespace TTVTL_Nuppudega
             this.xpath = xpath;
             this.parent = parent;
 
-            Task<Control> CTask = Task.Run(() => {return new Control(); });
-            //CTask.ContinueWith(t => { control = null; });
-            this.control = CTask.Result;
-
+            this.control = ControlMaker(xpath, this);
             subList = SubNodeSubscription(Ttvt.XML.SelectNodes(xpath + "/*"));
             if (subList.Count > 0) { StartSizeChange(); }
         }
@@ -63,19 +59,17 @@ namespace TTVTL_Nuppudega
         }
         private Control ControlMaker(string path, Valikud valik)
         {
-            Control VerticalButton(string x, Valikud y) 
-            { return Ttvt.VButtonCreator(x, y); }
-            Control HorizontalButton(string x, Valikud y) 
-            { return Ttvt.HButtonCreator(x, y); }
+            Func<string, Valikud, Control> VerticalButton = (string x, Valikud y) =>
+                { return Ttvt.VButtonCreator(x, y); };
+            Func<string, Valikud, Control> HorizontalButton = (string x, Valikud y) =>
+                { return Ttvt.HButtonCreator(x, y); };
 
-            var Maker = verticality ? VerticalButton :
-                (Func<string, Valikud, Control>)HorizontalButton;
-            try { var name = Ttvt.XML.SelectSingleNode(path).Attributes["name"].InnerText;
-                return Maker(name, valik); }
+            var Maker = verticality ? VerticalButton : HorizontalButton;
+            try { var name = Ttvt.XML.SelectSingleNode(path).Attributes["name"].InnerText; return Maker(name, valik); }
             catch (NullReferenceException) { return null; }
 
         }
-        private List<Valikud> SubNodeSubscription(XmlNodeList nodes) // Slow - need a way to make faster
+        private List<Valikud> SubNodeSubscription(XmlNodeList nodes) // Slow, low priority
         {
             var SubNodes = new List<Valikud>();
             foreach (XmlNode node in nodes)
@@ -85,7 +79,7 @@ namespace TTVTL_Nuppudega
             }
             return SubNodes;
         }
-        public bool ToggleVisibility()
+        public bool ToggleVisibility() // Slow, high priority since it's used more
         {
             if (width == 0)
             {
@@ -104,11 +98,10 @@ namespace TTVTL_Nuppudega
             {
                 return;
             }
-            void WIDTH(Control c) { c.Width = width; }
-            void HEIGHT(Control c) { c.Height = height; }
+            Action<Control> WIDTH = (Control c) => { c.Width = width; };
+            Action<Control> HEIGHT = (Control c) => { c.Height = height; };
 
-            var action = subList[0].verticality ? 
-                (Action<Control>)WIDTH : HEIGHT;
+            var action = subList[0].verticality ? WIDTH : HEIGHT;
             for (int i = FCI; i < subList.Count; i++)
             {
                 action(subList[i].control);

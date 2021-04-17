@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -10,7 +9,6 @@ namespace TTVTL_Nuppudega
 {
     public partial class TTVT : Form
     {
-        private delegate void AddToPanel();
         public XmlDocument XML = new XmlDocument();
         public Button VFocus = null;
         public Button HFocus = null;
@@ -28,15 +26,13 @@ namespace TTVTL_Nuppudega
         private void TTVT_Load(object sender, EventArgs e)
         {
             XML.Load(Program.xml_files[0]);
-
             var AlgMenüü = new Valikud(this, true, "/root");
-            // Showing only the required buttons
+
             foreach (Control panel in new List<Control> { VPanel, HPanel })
             {
                 foreach (Button button in panel.Controls) { button.Hide(); }
             }
             AlgMenüü.ToggleVisibility();
-
             HPanel.Padding = new Padding(0, 15, 0, AlgMenüü.height / 4 + 15);
             EndLoadingSCreen();
         }
@@ -83,9 +79,7 @@ namespace TTVTL_Nuppudega
                 Math.Abs(mobc.G - bc.G) / I,
                 Math.Abs(mobc.B - bc.G) / I);
 
-            //VPanel.Controls.Add(dButton);
-            AddingToPanel(dButton, VPanel);
-            return dButton;
+            VPanel.Controls.Add(dButton); return dButton;
         }
         public Button HButtonCreator(string name, Valikud valik)
         {
@@ -96,15 +90,8 @@ namespace TTVTL_Nuppudega
             dButton.KeyDown += new KeyEventHandler(HButtonKeyDown);
             dButton.Tag = valik;
 
-            //HPanel.Controls.Add(dButton);
-            AddingToPanel(dButton, HPanel);
-            return dButton;
+            HPanel.Controls.Add(dButton); return dButton;
         }
         // Button Creator END
-        private void AddingToPanel(Button button, Panel panel) // Mostly for the future when I'm more proficient with tasks/threading
-        {
-            void addition() { panel.Controls.Add(button); }
-            Invoke(new AddToPanel(addition));
-        }
     }
 }
