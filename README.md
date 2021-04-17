@@ -1,17 +1,17 @@
 # TeliaTV-Emulaator
 
-## Eesmaärk
-+ Telia infotugis töötaja küsis minu käest tarkvata, mis lihtsustab tema tööd
-	Programm, mis visualiseeriks, kuidas kasutaja telekat näeb
+## EesmÃ¤rk
++ Telia infotugis tÃ¶Ã¶taja kÃ¼sis minu kÃ¤est tarkvata, mis lihtsustab tema tÃ¶Ã¶d
+	Programm, mis visualiseeriks, kuidas kasutaja telekat nÃ¤eb
 
 ## Tegutsemine
-+ Loob menüü kasutades XML faili, mis hoiab endas struktuuri ja muud infot
-+ Kasutan XML faili, sest see on muudetav kasutaja poolt, ehk vähem hooldust
++ Loob menÃ¼Ã¼ kasutades XML faili, mis hoiab endas struktuuri ja muud infot
++ Kasutan XML faili, sest see on muudetav kasutaja poolt, ehk vÃ¤hem hooldust
 	on vaja pikaajaliselt
 
 ## Kasutamine
 + Kaustas "PROOV" saab proovida programmi kasutamist
-+ EXE faili samma kausta saab panna mitmeid XML faile, mille vahel on võimalik
-	valida programmi tööle panemisel
-+ Praegu saab siseneda ainult seadete menüüsse, sest pole täiendanud XML faili
-	piisavalt, et mujal ka töötaks
++ EXE faili samma kausta saab panna mitmeid XML faile, mille vahel on vÃµimalik
+	valida programmi tÃ¶Ã¶le panemisel
++ Praegu saab siseneda ainult seadete menÃ¼Ã¼sse, sest pole tÃ¤iendanud XML faili
+	piisavalt, et mujal ka tÃ¶Ã¶taks
