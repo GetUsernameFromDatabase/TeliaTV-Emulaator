@@ -10,32 +10,35 @@ namespace TTVTL_Nuppudega
     {
         private class RadioButtonPanel: TableLayoutPanel
         {
-            public RadioButtonPanel(XMLChooser parent, int rBtnHeight)
+            private XMLChooser mainForm;
+
+            public RadioButtonPanel(XMLChooser mainForm, int rBtnHeight)
             {
+                this.mainForm = mainForm;
                 this.AutoSize = true;
                 this.GrowStyle = TableLayoutPanelGrowStyle.AddColumns;
 
-                var refObj = parent.Seletus;
+                var refObj = mainForm.Seletus;
                 this.Location = new Point(refObj.Right + refObj.Margin.Right, refObj.Top);
 
-                this.Height = parent.Height - refObj.Top;
+                this.Height = mainForm.Height - refObj.Top;
                 this.RowCount = this.Height / rBtnHeight;
             }
             public void MakeFirstButtonActive()
             {
                 var btn = this.Controls[0] as XMLRadioButton;
                 btn.Checked = true;
-                btn.PerformClick();
+                mainForm.ENTER.Tag = btn.Name;
             }
         }
 
         private class XMLRadioButton : RadioButton
         {
-            public XMLChooser Caller { get; }
+            public XMLChooser mainForm { get; }
 
-            public XMLRadioButton(XMLChooser parent, string xmlLocation)
+            public XMLRadioButton(XMLChooser mainForm, string xmlLocation)
             {
-                this.Caller = parent;
+                this.mainForm = mainForm;
 
                 this.AutoSize = true;
                 this.Name = xmlLocation;
@@ -48,12 +51,12 @@ namespace TTVTL_Nuppudega
 
             private void ClickEvent(object sender, EventArgs e)
             {
-                Caller.ENTER.Tag = (sender as RadioButton).Name;
+                mainForm.ENTER.Tag = (sender as RadioButton).Name;
             }
             private void KeyPressEvent(object sender, KeyPressEventArgs e)
             {
                 if (e.KeyChar == (char)13) 
-                    Caller.EndForm((sender as RadioButton).Name);
+                    mainForm.EndForm((sender as RadioButton).Name);
             }
         }
 
