@@ -21,6 +21,7 @@ namespace TTVTL_Nuppudega
 
             Text = Program.name;
             BackColor = Program.BackColour;
+
             MouseWheel += new MouseEventHandler(MouseWheelScroll);
         }
         private void TTVT_Load(object sender, EventArgs e)
@@ -29,9 +30,8 @@ namespace TTVTL_Nuppudega
             var AlgMenüü = new Valikud(this, true, "/root");
 
             foreach (Control panel in new List<Control> { VPanel, HPanel })
-            {
-                foreach (Button button in panel.Controls) { button.Hide(); }
-            }
+                foreach (Button button in panel.Controls) button.Hide();
+
             AlgMenüü.ToggleVisibility();
             HPanel.Padding = new Padding(0, 15, 0, AlgMenüü.height / 4 + 15);
             EndLoadingSCreen();

@@ -24,18 +24,14 @@ namespace TTVTL_Nuppudega
         /// </summary>
         [STAThread]
 
-
         static void Main()
         {
-            var FilesThere = new DirectoryInfo(".");
-
-            foreach (FileInfo ini in FilesThere.GetFiles("*.xml"))
-            {
-                xml_files.Add(ini.FullName);
-            }
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            var currentDirectory = new DirectoryInfo(".");
+            foreach (FileInfo xml in currentDirectory.GetFiles("*.xml"))
+                xml_files.Add(xml.FullName);
 
             if (xml_files.Count == 0)
             {
@@ -43,9 +39,8 @@ namespace TTVTL_Nuppudega
                 Application.Exit();
             }
             else if (xml_files.Count > 1)
-            {
                 Application.Run(new XMLChooser());
-            }
+
             SplashForm.ShowSplashScreen();
             Application.Run(new TTVT());
         }
