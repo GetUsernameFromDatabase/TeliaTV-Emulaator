@@ -21,6 +21,12 @@ namespace TTVTL_Nuppudega
                 this.Height = parent.Height - refObj.Top;
                 this.RowCount = this.Height / rBtnHeight;
             }
+            public void MakeFirstButtonActive()
+            {
+                var btn = this.Controls[0] as XMLRadioButton;
+                btn.Checked = true;
+                btn.PerformClick();
+            }
         }
 
         private class XMLRadioButton : RadioButton
@@ -42,7 +48,6 @@ namespace TTVTL_Nuppudega
 
             private void ClickEvent(object sender, EventArgs e)
             {
-
                 Caller.ENTER.Tag = (sender as RadioButton).Name;
             }
             private void KeyPressEvent(object sender, KeyPressEventArgs e)
@@ -64,7 +69,7 @@ namespace TTVTL_Nuppudega
 
             foreach (var file in Program.xml_files)
                 radioButtons.Controls.Add(new XMLRadioButton(this, file));
-            (radioButtons.Controls[0] as RadioButton).Checked = true;
+            radioButtons.MakeFirstButtonActive();
 
             Show();
         }
