@@ -4,9 +4,9 @@
 Friend asked me to make a program that would help him 
 guide people using Telia TV.
 
-## Testing purposes
-.exe file can be ran from the "PROOV" folder.
+### Quick use
+.exe file can be found in the "PROOV" folder
 
-### Side notes
-This is an old project imported from Google Drive
-Currently working on a version that is less "hacky"
+## Side notes
++ This is an old project imported from Google Drive
++ Currently working on a version that is less "hacky"
