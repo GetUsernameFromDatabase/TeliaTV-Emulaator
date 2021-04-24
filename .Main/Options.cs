@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,40 +29,6 @@ namespace TTVTL_Nuppudega
             this.xpath = xpath;
             this.parent = parent;
 
-            subList = SubNodeSubscription(Ttvt.XML.SelectNodes(xpath + "/*"));
-            if (subList.Count > 0) { StartSizeChange(); }
-        }
-
-        private void StartSizeChange()
-        {
-            var widths = new List<int>();
-            var heights = new List<int>();
-
-            for (var i = 0; i < subList.Count; i++)
-            {
-                var c = subList[i].control;
-                if (c == null)
-                {
-                    FCI = i + 1;
-                    widths.Add(0);
-                    heights.Add(0);
-                    continue;
-                }
-                widths.Add(c.Width);
-                heights.Add(c.Height);
-            }
-            width = widths.Max();
-            height = heights.Max();
-        }
-        private List<Valikud> SubNodeSubscription(XmlNodeList nodes) // Slow, low priority
-        {
-            var SubNodes = new List<Valikud>();
-            foreach (XmlNode node in nodes)
-            {
-                bool vert = control == null ? verticality : !verticality;
-                SubNodes.Add(new Valikud(Ttvt, vert, GetXPathToNode(node), this));
-            }
-            return SubNodes;
         }
         public bool ToggleVisibility() // Slow, high priority since it's used more
         {
@@ -76,48 +43,18 @@ namespace TTVTL_Nuppudega
             for (int i = FCI; i < subList.Count; i++) { action(subList[i].control); };
             return true;
         }
-        public static string GetXPathToNode(XmlNode node)
-        { // https://stackoverflow.com/questions/241238/how-to-get-xpath-from-an-xmlnode-instance
-            if (node.NodeType == XmlNodeType.Attribute)
-            {
-                // attributes have an OwnerElement, not a ParentNode; also they have             
-                // to be matched by name, not found by position             
-                return String.Format("{0}/@{1}", GetXPathToNode(((XmlAttribute)node).OwnerElement), node.Name);
-            }
-            if (node.ParentNode == null)
-            {
-                // the only node with no parent is the root node, which has no path
-                return "";
-            }
-
-            // Get the Index
-            int indexInParent = 1;
-            XmlNode siblingNode = node.PreviousSibling;
-            // Loop thru all Siblings
-            while (siblingNode != null)
-            {
-                // Increase the Index if the Sibling has the same Name
-                if (siblingNode.Name == node.Name)
-                {
-                    indexInParent++;
-                }
-                siblingNode = siblingNode.PreviousSibling;
-            }
-
-            // the path to a node is the path to its parent, plus "/node()[n]", where n is its position among its siblings.         
-            return String.Format("{0}/{1}[{2}]", GetXPathToNode(node.ParentNode), node.Name, indexInParent);
-        }
     }
 
     public class Options
     {
+        public Control activeSubControl { get; set; } // Can be null
+
         public readonly TTVT mainForm;
-        public readonly string name; // Can be null
         public readonly XmlNode currentNode;
+
+        public readonly string name; // Can be null
         public readonly Control control;
         public readonly Options[] subOptions;
-
-        public XmlNode activeSubNode { get; set; }
 
         public Options(TTVT mainForm, XmlNode currentNode)
         {
@@ -127,7 +64,7 @@ namespace TTVTL_Nuppudega
             this.name = currentNode.Attributes?["name"]?.InnerText;
             this.control = MakeControl();
 
-            this.activeSubNode = null;
+            this.activeSubControl = null;
             this.subOptions = MakeSubOptions();
         }
 
@@ -136,7 +73,7 @@ namespace TTVTL_Nuppudega
             var type = this.currentNode.Name;
             Control output = null;
 
-            if ((type == "vvalik" || type == "hvalik") && this.name != null)
+            if (this.name != null) //  && (type == "vvalik" || type == "hvalik")
             {
                 Control btn; FlowLayoutPanel panel;
 
@@ -165,7 +102,7 @@ namespace TTVTL_Nuppudega
             {
                 subOptionsList.Add(new Options(mainForm, node));
                 if (node.Attributes?["default"]?.InnerText == "1")
-                    this.activeSubNode = node;
+                    this.activeSubControl = subOptionsList.Last().control;
             }
             return subOptionsList.Count == 0 ? null :
                 subOptionsList.ToArray();
@@ -173,8 +110,8 @@ namespace TTVTL_Nuppudega
 
         public void ToggleSubOptionsVisibility()
         {
-            var query = this.subOptions.AsParallel().Where(o => o.control != null);
-            foreach (var option in query)
+            var query = this.subOptions.Where(o => o.control != null);
+            foreach (Options option in query)
                 option.control.Visible = !option.control.Visible;
         }
     }
@@ -182,9 +119,14 @@ namespace TTVTL_Nuppudega
 
     public class OptionButton : Button
     {
+        protected readonly Options Option;
+
         public OptionButton(Options callerOption, string name)
         {
+            this.Option = callerOption;
             this.AutoSize = true;
+            this.Visible = false;
+
             this.Text = name;
             this.Name = name;
 
@@ -200,9 +142,6 @@ namespace TTVTL_Nuppudega
 
             this.FlatAppearance.MouseOverBackColor = Program.BActiveColor;
             this.FlatAppearance.MouseDownBackColor = Program.BSelectColor;
-
-            this.Tag = callerOption;
-            this.Visible = false;
         }
     }
     public class ButtonVertical : OptionButton
@@ -229,6 +168,9 @@ namespace TTVTL_Nuppudega
         {
             var button = sender as Button;
             button.FlatAppearance.BorderColor = Program.BActiveColor;
+
+            this.Option.ToggleSubOptionsVisibility();
+            //Console.WriteLine(this.Option.);
 
             // previous Program.BUnActiveColor
         }

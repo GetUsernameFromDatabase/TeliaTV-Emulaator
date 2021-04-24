@@ -31,6 +31,8 @@ namespace TTVTL_Nuppudega
                 XML.DocumentElement.SelectSingleNode("/*")
                 );
             Vertical.ToggleSubOptionsVisibility();
+            Console.WriteLine(Vertical.activeSubControl.Text);
+            (Vertical.activeSubControl as ButtonVertical).PerformClick();
 
             EndLoadingSCreen();
         }
