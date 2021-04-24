@@ -45,46 +45,48 @@ namespace TTVTL_Nuppudega
         }
     }
 
-    public class Options
+    public class Option
     {
-        public Control activeSubControl { get; set; } // Can be null
-
         public readonly TTVT mainForm;
-        public readonly XmlNode currentNode;
+        public readonly Control control; // Can be null
+        public Option activeSubOption { get; set; }
 
-        public readonly string name; // Can be null
-        public readonly Control control;
-        public readonly Options[] subOptions;
+        private readonly Option Parent;
+        private readonly Option[] subOptions;
+        private readonly XmlNode currentNode;
 
-        public Options(TTVT mainForm, XmlNode currentNode)
+        public Option(Option Parent, XmlNode currentNode, TTVT mainForm)
         {
+            this.Parent = Parent;
             this.mainForm = mainForm;
             this.currentNode = currentNode;
 
-            this.name = currentNode.Attributes?["name"]?.InnerText;
             this.control = MakeControl();
-
-            this.activeSubControl = null;
             this.subOptions = MakeSubOptions();
+
+            if (this.currentNode.Name == "vvalik")
+                this.activeSubOption = this.subOptions.Where(
+                    o => o.control != null).First();
         }
+
 
         private Control MakeControl()
         {
             var type = this.currentNode.Name;
             Control output = null;
 
-            if (this.name != null) //  && (type == "vvalik" || type == "hvalik")
+            var name = currentNode.Attributes?["name"]?.InnerText;
+            if (name != null)
             {
                 Control btn; FlowLayoutPanel panel;
-
                 if (type[0] == 'v')
                 {
-                    btn = new ButtonVertical(this, this.name);
+                    btn = new ButtonVertical(this, name);
                     panel = this.mainForm.VPanel;
                 }
                 else
                 {
-                    btn = new ButtonHorizontal(this, this.name);
+                    btn = new ButtonHorizontal(this, name);
                     panel = this.mainForm.HPanel;
                 }
                 panel.Controls.Add(btn);
@@ -94,24 +96,22 @@ namespace TTVTL_Nuppudega
 
             return output;
         }
-
-        private Options[] MakeSubOptions()
+        private Option[] MakeSubOptions()
         {
-            var subOptionsList = new List<Options>();
+            var subOptionsList = new List<Option>();
             foreach (XmlNode node in currentNode.ChildNodes)
             {
-                subOptionsList.Add(new Options(mainForm, node));
+                subOptionsList.Add(new Option(this, node, mainForm));
                 if (node.Attributes?["default"]?.InnerText == "1")
-                    this.activeSubControl = subOptionsList.Last().control;
+                    this.activeSubOption = subOptionsList.Last();
             }
             return subOptionsList.Count == 0 ? null :
                 subOptionsList.ToArray();
         }
-
         public void ToggleSubOptionsVisibility()
         {
             var query = this.subOptions.Where(o => o.control != null);
-            foreach (Options option in query)
+            foreach (Option option in query)
                 option.control.Visible = !option.control.Visible;
         }
     }
@@ -119,9 +119,14 @@ namespace TTVTL_Nuppudega
 
     public class OptionButton : Button
     {
-        protected readonly Options Option;
+        protected readonly Option Option;
+        protected readonly Color TextColour = Color.White;
+        protected readonly Color HoverColour = Color.Black;
+        protected readonly Color ActiveColour = Color.LimeGreen;
+        protected readonly Color UnActiveColour = Color.Black;
 
-        public OptionButton(Options callerOption, string name)
+
+        public OptionButton(Option callerOption, string name)
         {
             this.Option = callerOption;
             this.AutoSize = true;
@@ -134,19 +139,19 @@ namespace TTVTL_Nuppudega
             this.TextAlign = ContentAlignment.MiddleLeft;
             this.FlatStyle = FlatStyle.Flat;
 
-            this.ForeColor = Color.White;
-            this.BackColor = Program.BUnActiveColor;
+            this.ForeColor = this.TextColour;
+            this.BackColor = this.UnActiveColour;
 
             this.FlatAppearance.BorderSize = 3;
-            this.FlatAppearance.BorderColor = Program.BUnActiveColor;
+            this.FlatAppearance.BorderColor = this.UnActiveColour;
 
-            this.FlatAppearance.MouseOverBackColor = Program.BActiveColor;
-            this.FlatAppearance.MouseDownBackColor = Program.BSelectColor;
+            this.FlatAppearance.MouseOverBackColor = this.ActiveColour;
+            this.FlatAppearance.MouseDownBackColor = this.HoverColour;
         }
     }
     public class ButtonVertical : OptionButton
     {
-        public ButtonVertical(Options callerOption, string name)
+        public ButtonVertical(Option callerOption, string name)
             : base(callerOption, name)
         {
             // Makes it strecth from Left to Right
@@ -162,45 +167,58 @@ namespace TTVTL_Nuppudega
                 Math.Abs(mobc.G - bc.G) / I,
                 Math.Abs(mobc.B - bc.G) / I);
 
-            GotFocus += FocusReceived;
+            this.GotFocus += FocusReceived;
         }
+
         private void FocusReceived(object sender, EventArgs e)
         {
+            void newFocus()
+            {
+                this.Option.ToggleSubOptionsVisibility();
+                this.Option.activeSubOption.control.Focus();
+                this.Option.mainForm.Vertical = this.Option;
+            }
+
             var button = sender as Button;
-            button.FlatAppearance.BorderColor = Program.BActiveColor;
+            button.FlatAppearance.BorderColor = this.ActiveColour;
 
-            this.Option.ToggleSubOptionsVisibility();
-            //Console.WriteLine(this.Option.);
-
-            // previous Program.BUnActiveColor
+            var previous = this.Option.mainForm.Vertical;
+            if (previous == null) newFocus();
+            else if (previous != this.Option)
+            {
+                newFocus();
+                (previous.control as Button)
+                    .FlatAppearance.BorderColor = this.UnActiveColour;
+                previous.ToggleSubOptionsVisibility();
+            }
         }
     }
     public class ButtonHorizontal : OptionButton
     {
-        public ButtonHorizontal(Options callerOption, string name)
+        public ButtonHorizontal(Option callerOption, string name)
             : base(callerOption, name)
         {
             // Makes it strecth from Bottom to Top
             this.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top);
 
-            GotFocus += FocusReceived;
-            LostFocus += FocusLost;
+            this.GotFocus += FocusReceived;
+            this.LostFocus += FocusLost;
         }
 
         private void FocusLost(object sender, EventArgs e)
         {
             var button = sender as Button;
 
-            button.BackColor = Program.BUnActiveColor;
-            button.FlatAppearance.BorderColor = Program.BUnActiveColor;
+            button.BackColor = this.UnActiveColour;
+            button.FlatAppearance.BorderColor = this.UnActiveColour;
         }
-
         private void FocusReceived(object sender, EventArgs e)
         {
+            this.Option.mainForm.Horizontal = this.Option;
             var button = sender as Button;
 
-            button.BackColor = Program.BActiveColor;
-            button.FlatAppearance.BorderColor = Program.BActiveColor;
+            button.BackColor = this.ActiveColour;
+            button.FlatAppearance.BorderColor = this.ActiveColour;
         }
     }
 

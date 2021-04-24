@@ -32,45 +32,6 @@ namespace TTVTL_Nuppudega
             else { return base.ProcessCmdKey(ref msg, keyData); }
 
         }
-        private void MouseWheelScroll(object sender, MouseEventArgs e)
-        {
-            if (e.Delta != 0) { Next_Control(e.Delta < 0, true); }
-        }
-        private void VButtonFocusEnter(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-            button.FlatAppearance.BorderColor = Program.BActiveColor;
-
-            Valikud valik = button.Tag as Valikud;
-            var VFocus = Vertical.control as Button;
-            if (VFocus != button)
-            {
-                try
-                {
-                    Valikud VFValik = VFocus.Tag as Valikud;
-                    VFValik.ToggleVisibility();
-                    VFocus.FlatAppearance.BorderColor = Program.BUnActiveColor;
-                }
-                catch (NullReferenceException) { }
-                valik.ToggleVisibility();
-            }
-
-            valik.subList[valik.FCI].control.Focus();
-        }
-        private void HButtonFocusEnter(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-
-            button.BackColor = Program.BActiveColor;
-            button.FlatAppearance.BorderColor = Program.BActiveColor;
-        }
-        private void HButtonFocusLeave(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-
-            button.BackColor = Program.BUnActiveColor;
-            button.FlatAppearance.BorderColor = Program.BUnActiveColor;
-        }
         private void HButtonKeyDown(object sender, KeyEventArgs e)
         {
             bool KeyChecking(Keys x) { return x == e.KeyCode; }
