@@ -27,13 +27,8 @@ namespace TTVTL_Nuppudega
         private void TTVT_Load(object sender, EventArgs e)
         {
             XML.Load(Program.xml_files[0]);
-            var AlgMenüü = new Valikud(this, true, "/root");
+            var rootMenu = new Options(this, XML.DocumentElement.FirstChild);
 
-            foreach (Control panel in new List<Control> { VPanel, HPanel })
-                foreach (Button button in panel.Controls) button.Hide();
-
-            AlgMenüü.ToggleVisibility();
-            HPanel.Padding = new Padding(0, 15, 0, AlgMenüü.height / 4 + 15);
             EndLoadingSCreen();
         }
         private void EndLoadingSCreen()
