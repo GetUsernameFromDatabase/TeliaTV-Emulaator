@@ -51,9 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include=".Main\Focus.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include=".Secondary\LoadingScreen.cs">
       <SubType>Form</SubType>
     </Compile>
