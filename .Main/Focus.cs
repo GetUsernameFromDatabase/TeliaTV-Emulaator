@@ -10,8 +10,8 @@ namespace TTVTL_Nuppudega
         private void Next_Control(bool next, bool verticality)
         {
             var panel = verticality ? VPanel : HPanel;
-            var focus = verticality ? VFocus : HFocus;
-            panel.SelectNextControl(focus, next, true, false, true);
+            //var focus = verticality ? VFocus : HFocus;
+            //panel.SelectNextControl(focus, next, true, false, true);
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -42,6 +42,7 @@ namespace TTVTL_Nuppudega
             button.FlatAppearance.BorderColor = Program.BActiveColor;
 
             Valikud valik = button.Tag as Valikud;
+            var VFocus = Vertical.control as Button;
             if (VFocus != button)
             {
                 try
@@ -55,7 +56,6 @@ namespace TTVTL_Nuppudega
             }
 
             valik.subList[valik.FCI].control.Focus();
-            VFocus = button;
         }
         private void HButtonFocusEnter(object sender, EventArgs e)
         {
@@ -63,8 +63,6 @@ namespace TTVTL_Nuppudega
 
             button.BackColor = Program.BActiveColor;
             button.FlatAppearance.BorderColor = Program.BActiveColor;
-
-            HFocus = button;
         }
         private void HButtonFocusLeave(object sender, EventArgs e)
         {

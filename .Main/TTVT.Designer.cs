@@ -54,7 +54,7 @@
             this.TeavitusMenu.Location = new System.Drawing.Point(0, 0);
             this.TeavitusMenu.Name = "TeavitusMenu";
             this.TeavitusMenu.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.TeavitusMenu.Size = new System.Drawing.Size(783, 24);
+            this.TeavitusMenu.Size = new System.Drawing.Size(1008, 24);
             this.TeavitusMenu.TabIndex = 99;
             this.TeavitusMenu.Text = "menuStrip1";
             // 
@@ -140,8 +140,8 @@
             this.VPanel.Location = new System.Drawing.Point(0, 24);
             this.VPanel.MinimumSize = new System.Drawing.Size(20, 0);
             this.VPanel.Name = "VPanel";
-            this.VPanel.Padding = new System.Windows.Forms.Padding(5, 0, 18, 0);
-            this.VPanel.Size = new System.Drawing.Size(23, 538);
+            this.VPanel.Padding = new System.Windows.Forms.Padding(5, 0, 20, 0);
+            this.VPanel.Size = new System.Drawing.Size(25, 513);
             this.VPanel.TabIndex = 5;
             this.VPanel.TabStop = true;
             this.VPanel.WrapContents = false;
@@ -152,10 +152,11 @@
             this.HPanel.AutoSize = true;
             this.HPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.HPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.HPanel.Location = new System.Drawing.Point(23, 542);
+            this.HPanel.Location = new System.Drawing.Point(25, 512);
             this.HPanel.MinimumSize = new System.Drawing.Size(0, 20);
             this.HPanel.Name = "HPanel";
-            this.HPanel.Size = new System.Drawing.Size(760, 20);
+            this.HPanel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 20);
+            this.HPanel.Size = new System.Drawing.Size(983, 25);
             this.HPanel.TabIndex = 6;
             this.HPanel.TabStop = true;
             this.HPanel.WrapContents = false;
@@ -166,12 +167,12 @@
             this.ContentPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.ContentPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ContentPanel.Location = new System.Drawing.Point(23, 24);
+            this.ContentPanel.Location = new System.Drawing.Point(25, 24);
             this.ContentPanel.Name = "ContentPanel";
             this.ContentPanel.RowCount = 2;
             this.ContentPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.ContentPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.ContentPanel.Size = new System.Drawing.Size(760, 518);
+            this.ContentPanel.Size = new System.Drawing.Size(983, 488);
             this.ContentPanel.TabIndex = 100;
             // 
             // TTVT
@@ -180,7 +181,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Indigo;
-            this.ClientSize = new System.Drawing.Size(783, 562);
+            this.ClientSize = new System.Drawing.Size(1008, 537);
             this.Controls.Add(this.ContentPanel);
             this.Controls.Add(this.HPanel);
             this.Controls.Add(this.VPanel);
