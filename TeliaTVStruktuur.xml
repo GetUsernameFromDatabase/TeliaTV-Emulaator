@@ -1,6 +1,5 @@
-<root>
-	<vvalik name= "Salvestused">
-		<default>False</default>
+<valikud>
+	<vvalik name= "Salvestused" default = "0">
 		<hvalik name= "Kõik">
 		</hvalik>
 		<hvalik name= "Tänased">
@@ -9,8 +8,7 @@
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Videolaenutused">
-		<default>False</default>
+	<vvalik name= "Videolaenutused" default = "0">
 		<hvalik name= "Uued filmid">
 		</hvalik>
 		<hvalik name= "Filmisoovitused">
@@ -21,26 +19,22 @@
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Lastenurk">
-		<default>False</default>
+	<vvalik name= "Lastenurk" default = "0">
 		<hvalik name= "Sisenen">
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Otsing">
-		<default>False</default>
+	<vvalik name= "Otsing" default = "0">
 		<hvalik name= "Sisenen">
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Sisuleidja">
-		<default>False</default>
+	<vvalik name= "Sisuleidja" default = "0">
 		<hvalik name= "Sisenen">
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Äpid">
-		<default>False</default>
+	<vvalik name= "Äpid" default = "0">
 		<hvalik name= "FOX NOW">
 		</hvalik>
 		<hvalik name= "HBO">
@@ -53,16 +47,14 @@
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Telekava">
-		<default>False</default>
+	<vvalik name= "Telekava" default = "0">
 		<hvalik name= "Sisenen">
 		</hvalik>
 		<hvalik name= "Telia soovitab">
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Telekanalid">
-		<default>True</default>
+	<vvalik name= "Telekanalid" default = "1">
 		<hvalik name= "Minu lemmikud">
 		</hvalik>
 		<hvalik name= "Tellitud kanalid">
@@ -93,8 +85,7 @@
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Seaded">
-		<default>False</default>
+	<vvalik name= "Seaded" default = "0">
 		<hvalik name= "Sisenen">
 			<vvalik name ="Tehase seadete taastamine">
 				<hvalik name= "Sisenen">
@@ -159,17 +150,15 @@
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Minu Teenused">
-		<default>False</default>
+	<vvalik name= "Minu Teenused" default = "0">
 		<hvalik name= "Telia TV">
 		</hvalik>
 	</vvalik>
 
-	<vvalik name= "Abiinfo">
-		<default>False</default>
+	<vvalik name= "Abiinfo" default = "0">
 		<hvalik name= "Abiinfo">
 		</hvalik>
 		<hvalik name= "Info ja teated">
 		</hvalik>
 	</vvalik>
-</root>
+</valikud>
