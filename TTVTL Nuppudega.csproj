@@ -56,7 +56,7 @@
     <Compile Include=".Secondary\LoadingScreen.Designer.cs">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include=".Main\Valikud.cs" />
+    <Compile Include=".Main\Options.cs" />
     <Compile Include=".Main\TTVT.cs">
       <SubType>Form</SubType>
     </Compile>
