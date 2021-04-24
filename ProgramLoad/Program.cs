@@ -32,7 +32,7 @@ namespace TTVTL_Nuppudega
             if (xml_files.Count == 0)
             {
                 MessageBox.Show("\"TeliaTVStruktuur.xml\" on puudu", "XML Fail Puudu");
-                Application.Exit();
+                Environment.Exit(1);
             }
             else if (xml_files.Count > 1)
                 Application.Run(new XMLChooser());

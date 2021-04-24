@@ -51,38 +51,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include=".Secondary\LoadingScreen.cs">
+    <Compile Include="ProgramLoad\LoadingScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include=".Secondary\LoadingScreen.Designer.cs">
+    <Compile Include="ProgramLoad\LoadingScreen.Designer.cs">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include=".Main\Option.cs" />
-    <Compile Include=".Main\TTVT.cs">
+    <Compile Include="ProgramInterface\Option.cs" />
+    <Compile Include="ProgramInterface\TTVT.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include=".Main\TTVT.Designer.cs">
+    <Compile Include="ProgramInterface\TTVT.Designer.cs">
       <DependentUpon>TTVT.cs</DependentUpon>
     </Compile>
-    <Compile Include=".Secondary\XMLChooser.cs">
+    <Compile Include="ProgramLoad\XMLChooser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include=".Secondary\XMLChooser.Designer.cs">
+    <Compile Include="ProgramLoad\XMLChooser.Designer.cs">
       <DependentUpon>XMLChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="ProgramLoad\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include=".Secondary\LoadingScreen.resx">
+    <EmbeddedResource Include="ProgramLoad\LoadingScreen.resx">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include=".Main\TTVT.resx">
+    <EmbeddedResource Include="ProgramInterface\TTVT.resx">
       <DependentUpon>TTVT.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include=".Secondary\XMLChooser.resx">
+    <EmbeddedResource Include="ProgramLoad\XMLChooser.resx">
       <DependentUpon>XMLChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -105,9 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\animated-loading-gif-transparent-background-11.gif" />
-    <Content Include="TeliaTVStruktuur.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <AdditionalFiles Include="TeliaTVStruktuur.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AdditionalFiles>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
