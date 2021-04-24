@@ -8,50 +8,14 @@ using System.Xml;
 
 namespace TTVTL_Nuppudega
 {
-    public class Valikud
-    {
-        private int width = 0;
-        public int height = 0;
-        public int FCI = 0; // First Control Index
-
-        public TTVT Ttvt { get; }
-        public string xpath { get; }
-        public Valikud parent { get; }
-        public bool verticality { get; }
-        public List<Valikud> subList { get; set; }
-        public Control control { get; set; }
-
-        public Valikud(TTVT Ttvt, bool verticality, string xpath,
-            Valikud parent = null)
-        {
-            this.Ttvt = Ttvt;
-            this.verticality = verticality;
-            this.xpath = xpath;
-            this.parent = parent;
-
-        }
-        public bool ToggleVisibility() // Slow, high priority since it's used more
-        {
-            if (width == 0)
-            {
-                return false;
-            }
-            var action = subList[FCI].control.Visible ?
-                (Action<Control>)((Control c) => { c.Visible = false; }) :
-                ((Control c) => { c.Visible = true; });
-
-            for (int i = FCI; i < subList.Count; i++) { action(subList[i].control); };
-            return true;
-        }
-    }
-
     public class Option
     {
         public readonly TTVT mainForm;
         public readonly Control control; // Can be null
-        public Option activeSubOption { get; set; }
 
-        private readonly Option Parent;
+        public Option activeSubOption { get; set; }
+        public readonly Option Parent;
+
         private readonly Option[] subOptions;
         private readonly XmlNode currentNode;
 
@@ -64,9 +28,8 @@ namespace TTVTL_Nuppudega
             this.control = MakeControl();
             this.subOptions = MakeSubOptions();
 
-            if (this.currentNode.Name == "vvalik")
-                this.activeSubOption = this.subOptions.Where(
-                    o => o.control != null).First();
+            this.activeSubOption = this.subOptions?.Where(
+                    o => o.control != null).FirstOrDefault();
         }
 
 
@@ -110,7 +73,8 @@ namespace TTVTL_Nuppudega
         }
         public void ToggleSubOptionsVisibility()
         {
-            var query = this.subOptions.Where(o => o.control != null);
+            var query = this.subOptions?.Where(o => o.control != null)
+                ?? new Option[] { };
             foreach (Option option in query)
                 option.control.Visible = !option.control.Visible;
         }
@@ -124,7 +88,6 @@ namespace TTVTL_Nuppudega
         protected readonly Color HoverColour = Color.Black;
         protected readonly Color ActiveColour = Color.LimeGreen;
         protected readonly Color UnActiveColour = Color.Black;
-
 
         public OptionButton(Option callerOption, string name)
         {
@@ -174,9 +137,10 @@ namespace TTVTL_Nuppudega
         {
             void newFocus()
             {
+                this.Option.mainForm.Vertical =
+                    this.Option.Parent.activeSubOption = this.Option;
                 this.Option.ToggleSubOptionsVisibility();
                 this.Option.activeSubOption.control.Focus();
-                this.Option.mainForm.Vertical = this.Option;
             }
 
             var button = sender as Button;
@@ -201,8 +165,29 @@ namespace TTVTL_Nuppudega
             // Makes it strecth from Bottom to Top
             this.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top);
 
+            this.Click += ButtonClick;
+
             this.GotFocus += FocusReceived;
             this.LostFocus += FocusLost;
+        }
+
+        /* 
+         * Todo: Make enter button have the same effect as space and click event
+         * 
+         * Haven't found an easy way to do it so thinking about trying to change
+         * button colour to active colour while enter down and then undo it when up
+        */
+        private void ButtonClick(object sender, EventArgs e)
+        {
+            if (this.Option.activeSubOption != null)
+            {
+                // Toggles current vertical panel
+                this.Option.Parent.Parent.ToggleSubOptionsVisibility();
+                // Sets up new vertical panel
+                this.Option.ToggleSubOptionsVisibility();
+                // Sets up new horizontal panel
+                this.Option.activeSubOption.control.Focus();
+            }
         }
 
         private void FocusLost(object sender, EventArgs e)
@@ -214,12 +199,12 @@ namespace TTVTL_Nuppudega
         }
         private void FocusReceived(object sender, EventArgs e)
         {
-            this.Option.mainForm.Horizontal = this.Option;
-            var button = sender as Button;
+            this.Option.mainForm.Horizontal = 
+                this.Option.Parent.activeSubOption = this.Option;
 
+            var button = sender as Button;
             button.BackColor = this.ActiveColour;
             button.FlatAppearance.BorderColor = this.ActiveColour;
         }
     }
-
 }
