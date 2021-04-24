@@ -42,11 +42,8 @@ namespace TTVTL_Nuppudega
 
         static private void CloseFormInternal()
         {
-            if (splashForm != null)
-            {
-                splashForm.Close();
-                splashForm = null;
-            };
+            splashForm?.Close();
+            splashForm = null; // For garbage collection
         }
     }
 }

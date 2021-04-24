@@ -10,8 +10,8 @@ namespace TTVTL_Nuppudega
     public partial class TTVT : Form
     {
         public XmlDocument XML = new XmlDocument();
-        public Options Vertical = null;
-        public Options Horizontal = null;
+        public Option Vertical = null;
+        public Option Horizontal = null;
 
         public TTVT()
         {
@@ -24,24 +24,28 @@ namespace TTVTL_Nuppudega
 
             MouseWheel += new MouseEventHandler(MouseWheelScroll);
         }
+
+
         private void TTVT_Load(object sender, EventArgs e)
         {
             XML.Load(Program.xml_files[0]);
-            Vertical = new Options(this,
-                XML.DocumentElement.SelectSingleNode("/*")
-                );
-            Vertical.ToggleSubOptionsVisibility();
-            Console.WriteLine(Vertical.activeSubControl.Text);
-            (Vertical.activeSubControl as ButtonVertical).PerformClick();
-
+            var root = new Option(null,
+                                  XML.DocumentElement.SelectSingleNode("/*"),
+                                  this);
+            root.ToggleSubOptionsVisibility();
             EndLoadingSCreen();
+            root.activeSubOption.control.Focus();
         }
         private void EndLoadingSCreen()
         {
             SplashForm.CloseForm();
             WindowState = FormWindowState.Minimized; // Doesn't come on top otherwise
             WindowState = FormWindowState.Normal;
-            Show(); GC.Collect();
+            this.Show(); GC.Collect();
+        }
+        private void MouseWheelScroll(object sender, MouseEventArgs e)
+        {
+            if (e.Delta != 0) { Next_Control(e.Delta < 0, true); }
         }
     }
 }

@@ -11,13 +11,9 @@ namespace TTVTL_Nuppudega
     {
         public static List<string> xml_files = new List<string>();
         public static readonly string name = "Telia TV Toetuse Lihtsustaja";
-        // Larger stuff colours
+        // Main Colours
         public static readonly Color BackColour = Color.Indigo;
         public static readonly Color MenuBackColour = Color.DarkMagenta;
-        // Button Colours
-        public static readonly Color BSelectColor = Color.ForestGreen;
-        public static readonly Color BActiveColor = Color.LimeGreen;
-        public static readonly Color BUnActiveColor = Color.Black;
 
         /// <summary>
         /// The main entry point for the application.
