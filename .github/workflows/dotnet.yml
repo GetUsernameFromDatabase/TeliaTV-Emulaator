@@ -21,10 +21,14 @@ jobs:
       with:
         dotnet-version: 5.0.x
         
+        # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+        
     - name: Restore dependencies
-      run: dotnet restore $env:ProjFile
+      run: msbuild $env:ProjFile /t:Restore
       
     - name: Build
-      run: dotnet build --no-restore $env:ProjFile
+      run: msbuild $env:ProjFile
     - name: Test
       run: dotnet test --no-build --verbosity normal
