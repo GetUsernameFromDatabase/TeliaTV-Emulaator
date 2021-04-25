@@ -23,19 +23,17 @@ namespace TTVTL_Nuppudega
             Text = Program.name;
             BackColor = Program.BackColour;
 
+            XML.Load(Program.xml_files[0]);
+            new Option(null, XML.DocumentElement.SelectSingleNode("/*"), this)
+                .ToggleSubOptionsVisibility();
+
             MouseWheel += new MouseEventHandler(MouseWheelScroll);
         }
 
 
         private void TTVT_Load(object sender, EventArgs e)
         {
-            XML.Load(Program.xml_files[0]);
-            var root = new Option(null,
-                                  XML.DocumentElement.SelectSingleNode("/*"),
-                                  this);
-            root.ToggleSubOptionsVisibility();
-            EndLoadingSCreen(); 
-            root.activeSubOption.control.Focus();
+            EndLoadingSCreen();
         }
         private void EndLoadingSCreen()
         {
@@ -73,7 +71,7 @@ namespace TTVTL_Nuppudega
             }
             else if (UP.Any(KeyChecking) || DOWN.Any(KeyChecking))
             {
-                Next_Control(DOWN.Any(KeyChecking), true); 
+                Next_Control(DOWN.Any(KeyChecking), true);
                 return true;
             }
             else if (BACK.Any(KeyChecking) && this.Vertical.Parent.Parent != null)

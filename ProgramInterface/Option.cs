@@ -28,7 +28,7 @@ namespace TTVTL_Nuppudega
             this.control = MakeControl();
             this.subOptions = MakeSubOptions();
 
-            this.activeSubOption = this.subOptions?.Where(
+            this.activeSubOption ??= this.subOptions?.Where(
                     o => o.control != null).FirstOrDefault();
         }
 
@@ -67,6 +67,7 @@ namespace TTVTL_Nuppudega
                 subOptionsList.Add(new Option(this, node, mainForm));
                 if (node.Attributes?["default"]?.InnerText == "1")
                     this.activeSubOption = subOptionsList.Last();
+
             }
             return subOptionsList.Count == 0 ? null :
                 subOptionsList.ToArray();
@@ -135,26 +136,32 @@ namespace TTVTL_Nuppudega
 
         private void FocusReceived(object sender, EventArgs e)
         {
-            void newFocus()
+            void ChangeActivityColour(Control c, bool intoActive)
             {
-                this.Option.mainForm.Vertical =
-                    this.Option.Parent.activeSubOption = this.Option;
-                this.Option.ToggleSubOptionsVisibility();
-                this.Option.activeSubOption.control.Focus();
+                var colour = intoActive ?
+                    this.ActiveColour : this.UnActiveColour;
+                (c as Button).FlatAppearance.BorderColor = colour;
             }
-
-            var button = sender as Button;
-            button.FlatAppearance.BorderColor = this.ActiveColour;
 
             var previous = this.Option.mainForm.Vertical;
-            if (previous == null) newFocus();
-            else if (previous != this.Option)
+            var current = previous == null ?
+                this.Option.Parent.activeSubOption : this.Option;
+
+            if (current != previous)
             {
-                newFocus();
-                (previous.control as Button)
-                    .FlatAppearance.BorderColor = this.UnActiveColour;
-                previous.ToggleSubOptionsVisibility();
+                current.mainForm.Vertical =
+                    current.Parent.activeSubOption = current;
+
+                ChangeActivityColour(current.control, true);
+                current.ToggleSubOptionsVisibility();
+                
+                if (previous != null)
+                {
+                    ChangeActivityColour(previous.control, false);
+                    previous.ToggleSubOptionsVisibility();
+                }
             }
+            current.activeSubOption.control.Focus();
         }
     }
     public class ButtonHorizontal : OptionButton
@@ -199,7 +206,7 @@ namespace TTVTL_Nuppudega
         }
         private void FocusReceived(object sender, EventArgs e)
         {
-            this.Option.mainForm.Horizontal = 
+            this.Option.mainForm.Horizontal =
                 this.Option.Parent.activeSubOption = this.Option;
 
             var button = sender as Button;
