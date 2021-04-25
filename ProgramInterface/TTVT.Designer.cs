@@ -186,6 +186,7 @@
             this.Controls.Add(this.HPanel);
             this.Controls.Add(this.VPanel);
             this.Controls.Add(this.TeavitusMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TTVT";

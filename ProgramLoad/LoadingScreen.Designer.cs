@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadingScreen));
             this.TEKST = new System.Windows.Forms.Label();
             this.LAADIMINE = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.LAADIMINE)).BeginInit();
@@ -68,6 +69,7 @@
             this.Controls.Add(this.LAADIMINE);
             this.Controls.Add(this.TEKST);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoadingScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Changes during runtime";
