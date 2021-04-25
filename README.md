@@ -9,4 +9,3 @@ guide people using Telia TV.
 
 ## Side notes
 + This is an old project imported from Google Drive
-+ Currently working on a version that is less "hacky"
