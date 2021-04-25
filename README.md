@@ -8,4 +8,4 @@ guide people using Telia TV.
 .exe file can be found in the "+TEST" folder
 
 ## Side notes
-+ This is an old project imported from Google Drive
++ This is a reworked version of my old program
