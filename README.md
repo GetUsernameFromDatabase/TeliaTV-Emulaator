@@ -1,4 +1,4 @@
-# TeliaTV-Emulaator
+# Telia TV environment simulator
 
 ## Reason for making this
 Friend asked me to make a program that would help him 
