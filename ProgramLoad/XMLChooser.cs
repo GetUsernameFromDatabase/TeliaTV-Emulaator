@@ -10,7 +10,7 @@ namespace TTVTL_Nuppudega
     {
         private class RadioButtonPanel: TableLayoutPanel
         {
-            private XMLChooser mainForm;
+            readonly private XMLChooser mainForm;
 
             public RadioButtonPanel(XMLChooser mainForm, int rBtnHeight)
             {

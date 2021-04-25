@@ -50,8 +50,8 @@
             // LAADIMINE
             // 
             this.LAADIMINE.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LAADIMINE.Image = global::TTVTL_Nuppudega.Properties.Resources.Loading_Icon;
-            this.LAADIMINE.InitialImage = global::TTVTL_Nuppudega.Properties.Resources.Loading_Icon;
+            this.LAADIMINE.Image = global::Telia_TV_Simulator.Properties.Resources.Loading_Icon;
+            this.LAADIMINE.InitialImage = global::Telia_TV_Simulator.Properties.Resources.Loading_Icon;
             this.LAADIMINE.Location = new System.Drawing.Point(0, 111);
             this.LAADIMINE.Name = "LAADIMINE";
             this.LAADIMINE.Size = new System.Drawing.Size(410, 74);

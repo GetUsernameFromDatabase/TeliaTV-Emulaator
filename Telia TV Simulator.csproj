@@ -4,14 +4,16 @@
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+    <Authors>Ryan Kruberg</Authors>
+	<RepositoryUrl>https://github.com/GetUsernameFromDatabase/TeliaTV-Simulator</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A4BB17F6-53E9-4913-BB57-C179BAFCE1E4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TTVTL_Nuppudega</RootNamespace>
-    <AssemblyName>TTVTL Nuppudega</AssemblyName>
+    <RootNamespace>Telia_TV_Simulator</RootNamespace>
+    <AssemblyName>Telia TV Simulator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -57,12 +59,12 @@
     <Compile Include="ProgramLoad\LoadingScreen.Designer.cs">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgramInterface\Option.cs" />
-    <Compile Include="ProgramInterface\TTVT.cs">
+    <Compile Include="ProgramInterface\Options.cs" />
+    <Compile Include="ProgramInterface\Interface.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgramInterface\TTVT.Designer.cs">
-      <DependentUpon>TTVT.cs</DependentUpon>
+    <Compile Include="ProgramInterface\Interface.Designer.cs">
+      <DependentUpon>Interface.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgramLoad\XMLChooser.cs">
       <SubType>Form</SubType>
@@ -70,13 +72,13 @@
     <Compile Include="ProgramLoad\XMLChooser.Designer.cs">
       <DependentUpon>XMLChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgramLoad\Program.cs" />
+    <Compile Include="ProgramLoad\Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ProgramLoad\LoadingScreen.resx">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProgramInterface\TTVT.resx">
-      <DependentUpon>TTVT.cs</DependentUpon>
+    <EmbeddedResource Include="ProgramInterface\Interface.resx">
+      <DependentUpon>Interface.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgramLoad\XMLChooser.resx">
       <DependentUpon>XMLChooser.cs</DependentUpon>
